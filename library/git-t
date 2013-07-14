@@ -1,0 +1,8 @@
+version=0.1
+release=1
+shortDescription='Using tmux to make git better.'
+homepage='https://github.com/xiongchiamiov/git-t/'
+source="https://github.com/xiongchiamiov/git-t/archive/v$version.tar.gz"
+
+bin=('git-tlog' 'git-tdiff')
+

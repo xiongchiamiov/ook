@@ -1,0 +1,34 @@
+#!/bin/bash -e
+
+case "$1" in
+   setup)
+      mkdir -p ~/.ook/cache
+      mkdir -p ~/bin
+      ;;
+   install)
+      if [ ! -w ~/.ook/cache ] || [ ! -w ~/bin ]; then
+         echo "Please run 'ook setup' first." >&2
+         exit 1
+      fi
+      
+      name=$2
+      source "library/$name"
+      cd ~/.ook/cache
+      wget --no-verbose "$source" -O "$name"
+      mkdir "$name-$version-$release"
+      tar -C "$name-$version-$release" -xzf "$name"
+      cd "$name-$version-$release"/*
+      for file in "${bin[@]}"; do
+         cp "$file" ~/bin/
+      done
+      ;;
+   clean)
+      rm -r ~/.ook/cache
+      mkdir -p ~/.ook/cache
+      ;;
+   *)
+      echo 'Usage: ook install' >&2
+      exit 1
+      ;;
+esac
+
