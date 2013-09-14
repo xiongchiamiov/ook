@@ -25,5 +25,6 @@ def run(argv):
         response = requests.get('%s/scripts/%s' % (libraryUrl, scriptName))
         script = response.json()
         print 'Name: %s' % script['name']
+        print 'Version: %s' % script['version']
         print 'Authors: %s' % ', '.join(script['admins'])
 
