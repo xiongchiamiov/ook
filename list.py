@@ -23,5 +23,5 @@ def run(argv):
         libraryUrl = config.get('remote', 'url')
         response = requests.get('%s/scripts/' % libraryUrl)
         for script in response.json():
-            print script['name']
+            print script
 
