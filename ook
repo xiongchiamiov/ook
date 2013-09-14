@@ -23,7 +23,11 @@ arguments = docopt(__doc__, version='ghgrep %s' % VERSION, options_first=True)
 try:
     command = __import__(arguments['<command>'])
 except ImportError as e:
-    exit('Unknown command: %s' % arguments['<command>'])
+    # Don't error out nicely if we have an import error *inside* the module.
+    if e.message == 'No module named %s' % arguments['<command>']:
+        exit('Unknown command: %s' % arguments['<command>'])
+    else:
+        raise
 
 argv = [arguments['<command>']] + arguments['<args>']
 command.run(argv)
