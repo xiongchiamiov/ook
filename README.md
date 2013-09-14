@@ -27,3 +27,9 @@ As a user, you might want to use ook if you want:
 
 [many others]: http://en.wikipedia.org/wiki/List_of_software_package_management_systems#Application-level_package_managers
 
+# Status
+
+Alpha.  Incomplete.  Changing.
+
+But I've got a rough idea of how I want it to look at the end.
+
