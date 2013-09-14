@@ -1,34 +1,30 @@
-#!/bin/bash -e
+#!/usr/bin/env python
+'''ook
 
-case "$1" in
-   setup)
-      mkdir -p ~/.ook/cache
-      mkdir -p ~/bin
-      ;;
-   install)
-      if [ ! -w ~/.ook/cache ] || [ ! -w ~/bin ]; then
-         echo "Please run 'ook setup' first." >&2
-         exit 1
-      fi
-      
-      name=$2
-      source "library/$name"
-      cd ~/.ook/cache
-      wget --no-verbose "$source" -O "$name"
-      mkdir "$name-$version-$release"
-      tar -C "$name-$version-$release" -xzf "$name"
-      cd "$name-$version-$release"/*
-      for file in "${bin[@]}"; do
-         cp "$file" ~/bin/
-      done
-      ;;
-   clean)
-      rm -r ~/.ook/cache
-      mkdir -p ~/.ook/cache
-      ;;
-   *)
-      echo 'Usage: ook install' >&2
-      exit 1
-      ;;
-esac
+Usage:
+    ook [options] <command> [<args>...]
+    ook (-h | --help)
+    ook --version
+
+Options:
+    -h --help           Show this screen.
+       --version        Show version.
+'''
+
+# May you recognize your weaknesses and share your strengths.
+# May you share freely, never taking more than you give.
+# May you find love and love everyone you find.
+
+from docopt import docopt
+
+VERSION = '0.1.0a1'
+arguments = docopt(__doc__, version='ghgrep %s' % VERSION, options_first=True)
+
+try:
+    command = __import__(arguments['<command>'])
+except ImportError as e:
+    exit('Unknown command: %s' % arguments['<command>'])
+
+argv = [arguments['<command>']] + arguments['<args>']
+command.run(argv)
 
