@@ -24,4 +24,7 @@ def run(argv):
     home = os.environ['HOME']
     runOrFail('mkdir -p %s/.ook/cache' % home)
     runOrFail('mkdir -p %s/bin' % home)
+    if not os.path.exists('%s/.ook/library' % home):
+        with open('%s/.ook/library' % home, 'w') as f:
+            f.write('{}')
 
