@@ -29,4 +29,10 @@ def run(argv):
         response = requests.get('%s/scripts/' % libraryUrl)
         for script in response.json():
             print script
+        print
+    
+    print 'Installed:'
+    print '----------'
+    for script in installedScripts.keys():
+        print script
 
